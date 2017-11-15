@@ -844,11 +844,11 @@ int msQueryByFilter(mapObj *map)
 
     if(classgroup) msFree(classgroup);
 
+    if(status != MS_DONE) goto query_error;
     lp->filteritem = old_filteritem; /* point back to original value */
     msCopyExpression(&lp->filter, &old_filter); /* restore old filter */
     msFreeExpression(&old_filter);
 
-    if(status != MS_DONE) goto query_error;
     if(!map->query.only_cache_result_count && lp->resultcache->numresults == 0) 
       msLayerClose(lp); /* no need to keep the layer open */
   } /* next layer */
